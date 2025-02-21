@@ -15,7 +15,7 @@ const Login = () => {
     setMessage(null); // Reset message on new submission
 
     if (!email || !password) {
-      setMessage("Please enter both email and password.");
+      setMessage("Please entert both email and password.");
       setMessageType("error");
       return;
     }
