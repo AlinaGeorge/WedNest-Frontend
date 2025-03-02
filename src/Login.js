@@ -25,7 +25,7 @@ const Login = () => {
     const { email, password, role } = formData;
 
     if (!email || !password) {
-      setMessage("Please enter both email and password.");
+      setMessage("Please entert both email and password.");
       setMessageType("error");
       return;
     }

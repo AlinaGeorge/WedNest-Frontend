@@ -43,7 +43,7 @@ export default function CoupleDashboard() {
         <header className="bg-orange-300 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-10 shadow-lg">
           <img src="WEDNEST_LOGO.png" alt="WedNest Logo" className="h-24 w-auto" />
           <div className="flex gap-6">
-            <button className="text-lg">Home</button>
+            <button onClick={() => navigate("/couple-home")}  className="text-lg">Home</button>
             <span className="text-lg">🛒</span>
             <span className="text-lg">👤</span>
           </div>

@@ -5,53 +5,49 @@ export default function CoupleHome() {
   const navigate = useNavigate();
 
   const services = [
-    { name: "Venue", icon: "/icons/venue.png" },
-    { name: "Catering", icon: "/icons/catering.png" },
-    { name: "Photography", icon: "/icons/photography.png" },
-    { name: "Beauty & Wellness", icon: "/icons/beauty.png" },
-    { name: "Designer", icon: "/icons/designer.png" },
-    { name: "Jewelry", icon: "/icons/jewellery.png" },
-    { name: "Car Dealers", icon: "/icons/car.png" },
-    { name: "Events", icon: "/icons/event.png" },
+    { name: "Venue", icon: "/icons/venue.png", path: "/venue" },
+    { name: "Catering", icon: "/icons/catering.png", path: "/catering" },
+    { name: "Photography", icon: "/icons/photography.png", path: "/photography" },
+    { name: "Beauty & Wellness", icon: "/icons/beauty.png", path: "/beauty" },
+    { name: "Designer", icon: "/icons/designer.png", path: "/designer" },
+    { name: "Jewelry", icon: "/icons/jewellery.png", path: "/jewelry" },
+    { name: "Car Dealers", icon: "/icons/car.png", path: "/car-dealers" },
+    { name: "Events", icon: "/icons/event.png", path: "/events" },
   ];
 
   return (
     <div
-    className="min-h-screen flex items-center justify-center bg-pink-100"
-    style={{ backgroundImage: "url('/bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}
-  >
-       {/* Header */}
-       <header className="bg-orange-300 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-10 shadow-lg">
-          <img src="WEDNEST_LOGO.png" alt="WedNest Logo" className="h-24 w-auto" />
-          <div className="flex gap-6">
+      className="min-h-screen flex flex-col items-center bg-pink-100 overflow-y-auto"
+      style={{ backgroundImage: "url('/bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}
+    >
+      <header className="bg-orange-300 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-10 shadow-lg">
+        <img src="WEDNEST_LOGO.png" alt="WedNest Logo" className="h-24 w-auto" />
+        <div className="flex gap-10 text-2xl">
           <button onClick={() => navigate("/couple-home")} className="text-lg">Home</button>
-            <span className="text-lg">🛒</span>
-            <span className="text-lg">👤</span>
-          </div>
-        </header>
+          <span className="text-3xl">🛒</span>
+          <span className="text-3xl">👤</span>
+        </div>
+      </header>
 
-        {/* Services Section */}
-        <div className="pt-16 px-4 md:px-6 text-center">
-        <h2 className="text-2xl font-bold mb-6">SERVICES</h2>
-        <div className="max-w-screen-lg mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-            {services.map((service) => (
-            <div key={service.name} className="flex flex-col items-center">
-                <img
+      <div className="pt-56 px-4 md:px-6 text-center w-full">
+        <h2 className="text-5xl font-extrabold mb-16 text-gray-800 font-serif tracking-wide">SERVICES</h2>
+        <div className="max-w-screen-lg mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-20 pb-20">
+          {services.map((service) => (
+            <button 
+              key={service.name} 
+              className="flex flex-col items-center transform transition duration-300 hover:scale-110"
+              onClick={() => navigate(service.path)}
+            >
+              <img
                 src={service.icon}
                 alt={service.name}
-                className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 object-contain"
-                />
-                <p className="text-lg font-semibold mt-2">{service.name}</p>
-            </div>
-            ))}
+                className="w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-56 lg:h-56 object-contain shadow-2xl rounded-full"
+              />
+              <p className="text-xl font-semibold mt-6 text-gray-900">{service.name}</p>
+            </button>
+          ))}
         </div>
-        </div>
-
-
-      
-
-
-
       </div>
+    </div>
   );
 }
