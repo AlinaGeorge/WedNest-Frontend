@@ -8,7 +8,7 @@ import CoupleDashboard from "./CoupleDashboard"; // Import the Couple Dashboard
 import CoupleProfileSetup from "./CoupleProfileSetup";
 import VendorProfileSetup from "./VendorProfileSetup";
 import CoupleHome from "./CoupleHome";
-
+import Venue from "./Venue";
 function App() {
   return (
     <Router>
@@ -21,6 +21,7 @@ function App() {
         <Route path="/couple-profile" element={<CoupleProfileSetup/>}/>
         <Route path="/vendor-profile" element={<VendorProfileSetup />} />
         <Route path="/couple-home" element={<CoupleHome />} />
+        <Route path="/venue" element={<Venue />} />
       </Routes>
     </Router>
   );
