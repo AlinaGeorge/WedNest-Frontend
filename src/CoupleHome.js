@@ -25,7 +25,7 @@ export default function CoupleHome() {
         <div className="flex gap-10 text-2xl">
           <button onClick={() => navigate("/couple-home")} className="text-lg">Home</button>
           <span className="text-3xl">🛒</span>
-          <span className="text-3xl">👤</span>
+          <button onClick={() => navigate("/couple-dashboard")}className="text-3xl">👤</button>
         </div>
       </header>
 
