@@ -7,18 +7,20 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState(null); // State for success/error messages
-  const [messageType, setMessageType] = useState("error"); // 'error' or 'success'
+  const [message, setMessage] = useState(null);
+  const [messageType, setMessageType] = useState("error");
   const navigate = useNavigate();
+
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"; // Use env variable for deployment
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(null); // Reset message on new submission
+    setMessage(null);
 
     const data = { username, email, password, user_type: role };
 
     try {
-      const response = await fetch("http://localhost:3000/api/register", {
+      const response = await fetch(`${API_URL}/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -31,7 +33,7 @@ const Signup = () => {
         setMessageType("success");
 
         setTimeout(() => {
-          navigate("/login"); // Redirect to Login Page after 1.5s
+          navigate("/login");
         }, 1500);
       } else {
         setMessage(result.message);
@@ -51,7 +53,6 @@ const Signup = () => {
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
         <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
 
-        {/* Message Display */}
         {message && (
           <div
             className={`mt-4 px-4 py-2 rounded-lg text-sm ${
@@ -80,7 +81,6 @@ const Signup = () => {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
             />
 
-            {/* Password Input with Toggle Visibility */}
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -94,11 +94,10 @@ const Signup = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-4 flex items-center text-gray-700"
               >
-                {showPassword ? "👁️" : "🙈"} {/* Toggle icon */}
+                {showPassword ? "👁️" : "🙈"}
               </button>
             </div>
 
-            {/* Role Selection Dropdown */}
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
@@ -109,10 +108,7 @@ const Signup = () => {
             </select>
           </div>
 
-          <button
-            type="submit"
-            className="w-full mt-6 bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition"
-          >
+          <button type="submit" className="w-full mt-6 bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition">
             Register Now
           </button>
         </form>
