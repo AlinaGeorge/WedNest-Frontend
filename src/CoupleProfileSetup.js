@@ -64,7 +64,7 @@ export default function ProfileSetup() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/api/register`, {
+      const response = await fetch(`${API_URL}/api/couple/profile`, {
         method: "PUT",
         body: formDataToSend, // Don't manually set headers for multipart form-data
       });

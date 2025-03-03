@@ -4,7 +4,7 @@ const Venue = () => {
   const [vendors, setVendors] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/vendors/type/Venue")
+    fetch(`${API_URL}/api/vendor/type/Venue`)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "success") {

@@ -38,8 +38,8 @@ const VendorProfileSetup = () => {
 
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/register`,;
-        const result = await response.json();
+        const response = await fetch(`${API_URL}/api/vendor/profile`, {
+          const result = await response.json();
 
         if (result.status === "success") {
           setVendorData((prev) => ({
