@@ -54,7 +54,7 @@ const Login = () => {
 
       setTimeout(() => {
         navigate(data.data.user_type === "Vendor" ? "/vendor-dashboard" : "/couple-dashboard");
-      }, 1500);
+      });
       
     } catch (error) {
       console.error("Login error:", error);
