@@ -20,7 +20,7 @@ const Signup = () => {
     const data = { username, email, password, user_type: role };
 
     try {
-      const response = await fetch(`${API_URL}/api/register`, {
+      const response = await fetch(`https://wednest-backend-hb5i.onrender.com/api/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
