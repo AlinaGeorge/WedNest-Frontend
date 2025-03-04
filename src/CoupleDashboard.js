@@ -12,7 +12,11 @@ export default function CoupleDashboard() {
     const fetchDashboardData = async () => {
       try {
 
-        const response = await fetch(`${API_URL}/api/couple/dashboard/`${user_id});
+
+        const response = await fetch(`${API_URL}/api/couple/dashboard/${user_id}`);
+
+
+        const response = await fetch(`${API_URL}/api/couple/dashboard/${user_id}`);
 
 
         const data = await response.json();
