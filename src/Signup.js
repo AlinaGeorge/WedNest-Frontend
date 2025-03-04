@@ -21,9 +21,11 @@ const Signup = () => {
 
     try {
       const response = await fetch(`${API_URL}/api/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        method: "POST", // Since we're sending data to create a new user
+        headers: {
+          "Content-Type": "application/json", // Telling the server we’re sending JSON
+        },
+        body: JSON.stringify(userData), // Converting JS object to JSON format
       });
 
       const result = await response.json();
