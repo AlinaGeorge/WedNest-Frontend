@@ -11,7 +11,7 @@ const Signup = () => {
   const [messageType, setMessageType] = useState("error");
   const navigate = useNavigate();
 
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"; // Use env variable for deployment
+  const API_URL = "https://wednest-backend-hb5i.onrender.com"; // Use env variable for deployment
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,11 +20,12 @@ const Signup = () => {
     const data = { username, email, password, user_type: role };
 
     try {
-      const response = await fetch(`https://wednest-backend-hb5i.onrender.com/api/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
+    const response = await fetch(`${API_URL}/api/register`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(data),
+});
+
 
       const result = await response.json();
 
