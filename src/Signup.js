@@ -7,15 +7,16 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState(null);
-  const [messageType, setMessageType] = useState("error");
+  const [message, setMessage] = useState(null); // Success/Error message
+  const [messageType, setMessageType] = useState("error"); // 'error' or 'success'
   const navigate = useNavigate();
 
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000"; // Use env variable for deployment
+  // API Base URL from .env (Fallback to localhost for development)
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(null);
+    setMessage(null); // Reset message on new submission
 
     const data = { username, email, password, user_type: role };
 
@@ -30,15 +31,15 @@ const Signup = () => {
 
       const result = await response.json();
 
-      if (result.status === "success") {
+      if (response.ok) {
         setMessage("Account created successfully! Redirecting to login...");
         setMessageType("success");
 
         setTimeout(() => {
-          navigate("/login");
+          navigate("/login"); // Redirect to Login Page after 1.5s
         }, 1500);
       } else {
-        setMessage(result.message);
+        setMessage(result.message || "Something went wrong. Please try again.");
         setMessageType("error");
       }
     } catch (error) {
@@ -55,6 +56,7 @@ const Signup = () => {
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
         <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
 
+        {/* Message Display */}
         {message && (
           <div
             className={`mt-4 px-4 py-2 rounded-lg text-sm ${
@@ -73,6 +75,7 @@ const Signup = () => {
               onChange={(e) => setUsername(e.target.value)}
               placeholder={role === "Couple" ? "Full Name" : "Business Name"}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
+              required
             />
 
             <input
@@ -81,8 +84,10 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email Id"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
+              required
             />
 
+            {/* Password Input with Toggle Visibility */}
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -90,16 +95,18 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
+                required
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-4 flex items-center text-gray-700"
               >
-                {showPassword ? "👁️" : "🙈"}
+                {showPassword ? "👁️" : "🙈"} {/* Toggle icon */}
               </button>
             </div>
 
+            {/* Role Selection Dropdown */}
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
@@ -110,7 +117,10 @@ const Signup = () => {
             </select>
           </div>
 
-          <button type="submit" className="w-full mt-6 bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition">
+          <button
+            type="submit"
+            className="w-full mt-6 bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition"
+          >
             Register Now
           </button>
         </form>
