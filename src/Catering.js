@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Venue = () => {
+const Catering = () => {
   const [vendors, setVendors] = useState([]);
   const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/vendors/type/Venue")
+    fetch("http://localhost:3000/api/vendors/type/Catering")
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "success") {
@@ -28,7 +28,7 @@ const Venue = () => {
       }}
     >
       <div className="max-w-6xl w-full bg-white p-6 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center mb-4">Venue Vendors</h1>
+        <h1 className="text-2xl font-bold text-center mb-4">Catering Vendors</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {vendors.length > 0 ? (
             vendors.map((vendor) => (
@@ -61,4 +61,4 @@ const Venue = () => {
   );
 };
 
-export default Venue;
+export default Catering;

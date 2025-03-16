@@ -24,8 +24,8 @@ const WeddingLandingPage = () => {
           />
         </div>
 
-        {/* Common Login & Sign Up Buttons - Moved to Top Edge */}
-        <div className="space-x-4 flex-grow-0 mt-[-180px]">
+        {/* Common Login & Sign Up Buttons */}
+        <div className="space-x-4">
           <Link to="/login">
             <button className="bg-purple-500 text-white px-4 py-2 rounded-xl">
               Login
