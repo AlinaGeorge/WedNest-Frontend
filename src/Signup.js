@@ -7,12 +7,9 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState(null); // Success/Error message
+  const [message, setMessage] = useState(null); // State for success/error messages
   const [messageType, setMessageType] = useState("error"); // 'error' or 'success'
   const navigate = useNavigate();
-
-  // API Base URL from .env (Fallback to localhost for development)
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +18,7 @@ const Signup = () => {
     const data = { username, email, password, user_type: role };
 
     try {
-      const response = await fetch(`${API_URL}/api/register`, {
+      const response = await fetch("http://localhost:3000/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -29,7 +26,7 @@ const Signup = () => {
 
       const result = await response.json();
 
-      if (response.ok) {
+      if (result.status === "success") {
         setMessage("Account created successfully! Redirecting to login...");
         setMessageType("success");
 
@@ -37,7 +34,7 @@ const Signup = () => {
           navigate("/login"); // Redirect to Login Page after 1.5s
         }, 1500);
       } else {
-        setMessage(result.message || "Something went wrong. Please try again.");
+        setMessage(result.message);
         setMessageType("error");
       }
     } catch (error) {
@@ -73,7 +70,6 @@ const Signup = () => {
               onChange={(e) => setUsername(e.target.value)}
               placeholder={role === "Couple" ? "Full Name" : "Business Name"}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
-              required
             />
 
             <input
@@ -82,7 +78,6 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email Id"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
-              required
             />
 
             {/* Password Input with Toggle Visibility */}
@@ -93,7 +88,6 @@ const Signup = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
-                required
               />
               <button
                 type="button"

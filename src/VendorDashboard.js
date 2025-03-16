@@ -20,9 +20,12 @@ export default function VendorDashboard() {
 
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/vendor/dashboard`, {
-          headers: { Authorization: `Bearer ${authToken}` },
-        });
+        const response = await fetch(
+          `http://localhost:3000/api/vendor/dashboard/${user_id}`,
+          {
+            headers: { Authorization: `Bearer ${authToken}` },
+          }
+        );
         const data = await response.json();
 
         if (response.ok && data.status === "success") {

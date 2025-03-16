@@ -38,8 +38,8 @@ const VendorProfileSetup = () => {
 
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/vendor/profile`, {
-          const result = await response.json();
+        const response = await fetch(`http://localhost:3000/api/vendor/profile/${vendorData.user_id}`);
+        const result = await response.json();
 
         if (result.status === "success") {
           setVendorData((prev) => ({
@@ -137,7 +137,7 @@ const VendorProfileSetup = () => {
       }
     } catch (error) {
       console.error("❌ Error updating profile:", error);
-      setMessage("⚠️ Server error, please try again later.");
+      setMessage("⚠ Server error, please try again later.");
     } finally {
       setLoading(false);
     }
@@ -168,6 +168,7 @@ const VendorProfileSetup = () => {
                 <option value="Designer">Designer</option>
               </select>
               <input type="tel" name="contactNumber" placeholder="Contact Number" value={vendorData.contactNumber} onChange={handleChange} className="w-full p-3 border rounded-lg bg-gray-100 shadow-sm" required />
+              <input type="number" name="pricing" placeholder="Pricing" value={vendorData.pricing} onChange={handleChange} className="w-full p-3 border rounded-lg bg-gray-100 shadow-sm" required />
               <input type="text" name="location" placeholder="Business Location" value={vendorData.location} onChange={handleChange} className="w-full p-3 border rounded-lg bg-gray-100 shadow-sm" required />
               <textarea name="serviceDescription" placeholder="Service Description" value={vendorData.serviceDescription} onChange={handleChange} className="w-full p-3 border rounded-lg bg-gray-100 shadow-sm" />
             </div>
