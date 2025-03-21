@@ -5,11 +5,16 @@ export default function CoupleDashboard() {
   const navigate = useNavigate();
   const [dashboardData, setDashboardData] = useState(null);
   const user_id = localStorage.getItem("user_id");
-
+  const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:3000").replace(/\/$/, ""); // Use the proxy for API requests
+  
   useEffect(() => {
     const fetchDashboardData = async () => {
-      try { 
-        const response = await fetch(`http://localhost:3000/api/couple/dashboard/${user_id}`);
+      try {
+        const response = await fetch(`${API_URL}/api/couple/dashboard/${user_id}`);
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Error fetching dashboard: ${errorText}`);
+        }
         const data = await response.json();
 
         console.log("Fetched Dashboard Data:", data); // Debugging
@@ -26,6 +31,12 @@ export default function CoupleDashboard() {
 
     if (user_id) fetchDashboardData();
   }, [user_id]);
+
+  useEffect(() => {
+    if (dashboardData) {
+      console.log("Profile Image URL:", dashboardData.profile_image); // Log after dashboardData is set
+    }
+  }, [dashboardData]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -44,7 +55,7 @@ export default function CoupleDashboard() {
           <img src="WEDNEST_LOGO.png" alt="WedNest Logo" className="h-24 w-auto" />
           <div className="flex gap-6">
             <button onClick={() => navigate("/couple-home")}  className="text-lg">Home</button>
-            <button onClick={() => navigate("/cart")} className="text-lg">🛒</button>            
+            <span className="text-lg">🛒</span>
             <span className="text-lg">👤</span>
           </div>
         </header>
@@ -64,10 +75,14 @@ export default function CoupleDashboard() {
           <div className="w-32 h-32 bg-gray-400 rounded-full">
             {dashboardData?.profile_image ? (
               <img
-                src={dashboardData.profile_image}
-                alt="Profile"
-                className="w-full h-full rounded-full object-cover"
-              />
+              src={
+                dashboardData.profile_image.startsWith("http")
+                  ? dashboardData.profile_image.replace(/^http:/, "https:")
+                  : `${API_URL}${dashboardData.profile_image}`
+              }
+              alt="Profile"
+              className="w-full h-full rounded-full object-cover"
+            />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gray-300 rounded-full">
                 No Image
@@ -165,4 +180,5 @@ export default function CoupleDashboard() {
         </div>
       </div>
     </div>
-  )};
+  );
+}

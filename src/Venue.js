@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 const Venue = () => {
   const [vendors, setVendors] = useState([]);
   const navigate = useNavigate(); // Hook for navigation
-
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
   useEffect(() => {
-    fetch("http://localhost:3000/api/vendors/type/Venue")
+    fetch(`${API_URL}/api/vendors/type/Venue`)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "success") {

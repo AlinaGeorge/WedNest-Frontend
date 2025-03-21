@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProfileSetup() {
   const navigate = useNavigate();
-  const API_URL =  "http://localhost:3000";
+  const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:3000").replace(/\/$/, "");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
