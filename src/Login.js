@@ -10,6 +10,8 @@ const Login = () => {
   const [messageType, setMessageType] = useState("error"); // 'error' or 'success'
   const navigate = useNavigate();
 
+  const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:3000").replace(/\/$/, "");
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setMessage(null); // Reset message on new submission
@@ -21,7 +23,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch(`${API_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
