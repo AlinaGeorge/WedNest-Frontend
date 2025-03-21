@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 const Photography = () => {
   const [vendors, setVendors] = useState([]);
   const navigate = useNavigate();
-
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
   useEffect(() => {
-    fetch("http://localhost:3000/api/vendors/type/Photography")
+    fetch(`${API_URL}/api/vendors/type/Photography`)
       .then((response) => response.json())
       .then((data) => {
         if (data.status === "success") setVendors(data.data);

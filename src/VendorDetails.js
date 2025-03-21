@@ -8,12 +8,12 @@ const VendorDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [requestStatus, setRequestStatus] = useState(null);
-  const [isRequested, setIsRequested] = useState(false); // Track request status
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
 
   useEffect(() => {
     const fetchVendorDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/vendor/details/${vendor_id}`);
+        const response = await fetch(`${API_URL}/api/vendor/details/${vendor_id}`);
         const data = await response.json();
 
         if (data.status === "success") {
@@ -29,25 +29,19 @@ const VendorDetails = () => {
     };
 
     fetchVendorDetails();
-
-    // Check localStorage to persist request status
-    const storedRequestStatus = localStorage.getItem(`request_sent_${vendor_id}`);
-    if (storedRequestStatus === "true") {
-      setIsRequested(true);
-    }
   }, [vendor_id]);
 
   const handleRequest = async () => {
     setRequestStatus(null);
 
-    const couple_id = localStorage.getItem("user_id");
+    const couple_id = localStorage.getItem("couple_id");
     if (!couple_id) {
       setRequestStatus({ type: "error", message: "You must be logged in as a couple to request." });
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3000/api/request", {
+      const response = await fetch(`${API_URL}/api/request`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,8 +54,6 @@ const VendorDetails = () => {
 
       if (data.status === "success") {
         setRequestStatus({ type: "success", message: "Request sent successfully!" });
-        setIsRequested(true); // Change button state
-        localStorage.setItem(`request_sent_${vendor_id}`, "true"); // Store status in localStorage
       } else {
         throw new Error(data.message || "Failed to send request.");
       }
@@ -99,14 +91,10 @@ const VendorDetails = () => {
                   <p className="text-gray-600"><strong>Phone:</strong> {vendor.contactNumber}</p>
                 </div>
 
-                {/* Request Button */}
-                <button
-                  className={`mt-6 px-6 py-3 rounded-lg shadow-md transition 
-                  ${isRequested ? "bg-yellow-500 text-black" : "bg-pink-500 text-white hover:bg-pink-600"}`}
+                <button className="mt-6 px-6 py-3 bg-pink-500 text-white rounded-lg shadow-md hover:bg-pink-600 transition"
                   onClick={handleRequest}
-                  disabled={isRequested} // Disable button if already requested
                 >
-                  {isRequested ? "Requested" : "Request to Avail"}
+                  Request to Avail
                 </button>
 
                 {requestStatus && (
