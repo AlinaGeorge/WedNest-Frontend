@@ -17,6 +17,8 @@ import Jewelry from "./Jewelry";
 import Cars from "./Cars";
 import Events from "./Events";
 import VendorDetails from "./VendorDetails"; 
+import Cart from "./Cart";
+import Booking from './Booking';
 
 
 
@@ -38,9 +40,11 @@ function App() {
         <Route path="/beauty" element={<Beauty/>} />
         <Route path="/designer" element={<Designer />} />
         <Route path="/jewelry" element={<Jewelry/>} />
-        <Route path="/cars" element={<Cars/>} />
+        <Route path="/car-dealers" element={<Cars/>} />
         <Route path="/events" element={<Events/>} />
         <Route path="/vendor/:vendor_id" element={<VendorDetails/>} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/booking" element={<Booking />} />
 
       </Routes>
     </Router>
