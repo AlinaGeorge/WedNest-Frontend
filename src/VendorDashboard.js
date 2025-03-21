@@ -143,7 +143,9 @@ export default function VendorDashboard() {
               className="p-6 rounded-lg text-black bg-cover bg-center shadow-md h-[250px]"
               style={{ backgroundImage: "url('/bgcouple.jpg')" }}
             >
-              <h2 className="text-xl font-semibold">Bookings and Requests</h2>
+              <button onClick={() => navigate('/booking')} className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+          Bookings and Requests
+        </button>
               <p className="mt-2">Manage all your service requests</p>
             </div>
           </div>
