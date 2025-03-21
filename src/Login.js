@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [role, setRole] = useState("Couple"); // Default role selection
+  const [role, setRole] = useState("Couple");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState(null); // State for displaying messages
-  const [messageType, setMessageType] = useState("error"); // 'error' or 'success'
+  const [message, setMessage] = useState(null);
+  const [messageType, setMessageType] = useState("error");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:3000").replace(/\/$/, "");
@@ -64,10 +65,10 @@ const Login = () => {
       setLoading(false);
     }
   };
+  
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center bg-pink-100"
+    <div className="min-h-screen flex items-center justify-center bg-pink-100"
       style={{ backgroundImage: "url('/bg.png')", backgroundSize: "cover", backgroundPosition: "center" }}
     >
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
@@ -76,11 +77,9 @@ const Login = () => {
 
         {/* Message Display */}
         {message && (
-          <div
-            className={`mt-4 px-4 py-2 rounded-lg text-sm ${
-              messageType === "error" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
-            }`}
-          >
+          <div className={`mt-4 px-4 py-2 rounded-lg text-sm ${
+            messageType === "error" ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"
+          }`}>
             {message}
           </div>
         )}
@@ -104,6 +103,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
+              required
             />
 
             {/* Password Input with Toggle Visibility */}
@@ -114,6 +114,7 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-800 bg-pink-200 focus:ring-2 focus:ring-pink-400 focus:outline-none"
+                required
               />
               <button
                 type="button"
@@ -129,8 +130,9 @@ const Login = () => {
           <button
             type="submit"
             className="w-full mt-6 bg-pink-600 text-white py-3 rounded-lg hover:bg-pink-700 transition"
+            disabled={loading}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 

@@ -17,10 +17,7 @@ import Jewelry from "./Jewelry";
 import Cars from "./Cars";
 import Events from "./Events";
 import VendorDetails from "./VendorDetails"; 
-import Cart from "./Cart";
-import Booking from './Booking';
-
-
+import Cart from "./Cart"; // Import the Cart component
 
 function App() {
   return (
@@ -43,9 +40,7 @@ function App() {
         <Route path="/car-dealers" element={<Cars/>} />
         <Route path="/events" element={<Events/>} />
         <Route path="/vendor/:vendor_id" element={<VendorDetails/>} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/booking" element={<Booking />} />
-
+        <Route path="/Cart" element={<Cart/>} /> {/* Corrected usage */}
       </Routes>
     </Router>
   );

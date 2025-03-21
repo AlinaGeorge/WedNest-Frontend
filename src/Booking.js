@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const Booking = () => {
   const [requests, setRequests] = useState([]);
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
   useEffect(() => {
     fetchRequests();
@@ -9,10 +10,10 @@ const Booking = () => {
 
   const fetchRequests = async () => {
     try {
-      const vendorId = localStorage.getItem('vendorId'); // Assuming vendorId is stored after login
+      const vendorId = localStorage.getItem('vendorId');
       if (!vendorId) throw new Error('Vendor ID not found');
 
-      const response = await fetch(`http://localhost:3000/api/vendor-requests?vendorId=${vendorId}`);
+      const response = await fetch(`${API_URL}/api/vendor-requests?vendorId=${vendorId}`);
       
       if (!response.ok) {
         const errorData = await response.json();
@@ -30,7 +31,7 @@ const Booking = () => {
 
   const handleAction = async (requestId, action) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/vendor-requests/${requestId}/${action}`, {
+      const response = await fetch(`${API_URL}/api/vendor-requests/${requestId}/${action}`, {
         method: 'PUT',
       });
 
