@@ -11,23 +11,27 @@ const Booking = () => {
   const fetchRequests = async () => {
     try {
       const vendorId = localStorage.getItem('vendorId');
+      console.log('Vendor ID from localStorage:', vendorId);
+  
       if (!vendorId) throw new Error('Vendor ID not found');
-
-      const response = await fetch(`${API_URL}/api/vendor-requests?vendorId=${vendorId}`);
+  
+      const response = await fetch(`${API_URL}/api/vendor-requests/${vendorId}`);
       
       if (!response.ok) {
         const errorData = await response.json();
         console.error('API Error:', errorData.message);
         throw new Error('Failed to fetch requests');
       }
-
+  
       const data = await response.json();
-      console.log('Fetched Requests:', data);
+      console.log('API Response:', data); // ✅ Add it here to inspect response
       setRequests(data);
     } catch (error) {
       console.error('Error fetching requests:', error);
     }
   };
+  
+  
 
   const handleAction = async (requestId, action) => {
     try {
