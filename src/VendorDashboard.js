@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function VendorDashboard() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   // ✅ Get user details from localStorage
   const email = localStorage.getItem("userEmail");
@@ -185,4 +185,4 @@ export default function VendorDashboard() {
       </div>
     </div>
   );
-} 
+}
