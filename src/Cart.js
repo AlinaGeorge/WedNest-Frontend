@@ -32,7 +32,6 @@ const Cart = () => {
         }
 
         if (cartData.status === "success" && cartData.data.length > 0) {
-          // Fetch vendor details for each cart item
           const updatedCart = await Promise.all(
             cartData.data.map(async (item) => {
               try {
@@ -45,12 +44,12 @@ const Cart = () => {
                 const vendorData = await vendorRes.json();
 
                 if (vendorData.status === "success") {
-                  return { ...item, vendor_id: vendorData.data }; // overwrite with full vendor data
+                  return { ...item, vendor_id: vendorData.data };
                 }
               } catch (error) {
                 console.error("Error fetching vendor details: ", error);
               }
-              return item; // fallback if error occurs
+              return item;
             })
           );
 
@@ -79,7 +78,9 @@ const Cart = () => {
 
       const data = await res.json();
       if (data.status === "success") {
-        setCartItems((prev) => prev.filter((item) => item.vendor_id._id !== vendor_id));
+        setCartItems((prev) =>
+          prev.filter((item) => item.vendor_id._id !== vendor_id)
+        );
         setMessage({ type: "success", text: "Item removed from cart." });
       } else {
         setMessage({ type: "error", text: data.message });
@@ -90,6 +91,11 @@ const Cart = () => {
   };
 
   const totalCost = cartItems.reduce((acc, item) => acc + item.price, 0);
+
+  const getImageUrl = (imgPath) => {
+    if (!imgPath) return "/placeholder.jpg";
+    return imgPath.startsWith("http") ? imgPath : `${API_URL}/${imgPath}`;
+  };
 
   if (loading) {
     return <p className="text-center text-gray-500 pt-28">Loading cart...</p>;
@@ -142,19 +148,19 @@ const Cart = () => {
                   >
                     <div className="flex items-center gap-4">
                       <img
-                        src={
-                          item.vendor_id.profile_image
-                            ? `${API_URL}/${item.vendor_id.profile_image}`
-                            : "/placeholder.jpg"
-                        }
+                        src={getImageUrl(item.vendor_id.service_images[0])}
                         alt={item.vendor_id.businessName}
                         className="w-16 h-16 object-cover rounded-full shadow"
                       />
                       <div>
-                        <p className="text-lg font-semibold">{item.vendor_id.businessName}</p>
+                        <p className="text-lg font-semibold">
+                          {item.vendor_id.businessName}
+                        </p>
                         <p className="text-gray-600">{item.vendor_id.vendorType}</p>
                         <p className="text-green-600 font-bold">${item.price}</p>
-                        <p className="text-sm text-gray-500 mt-1">Status: {item.status}</p>
+                        <p className="text-sm text-gray-500 mt-1">
+                          Status: {item.status}
+                        </p>
                       </div>
                     </div>
                     <button
