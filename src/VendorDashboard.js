@@ -11,7 +11,7 @@ export default function VendorDashboard() {
   const authToken = localStorage.getItem("authToken");
   const userRole = localStorage.getItem("userRole");
   const user_id = localStorage.getItem("user_id");
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
+
   useEffect(() => {
     if (!authToken || !email || userRole !== "Vendor") {
       navigate("/login");
@@ -21,7 +21,7 @@ export default function VendorDashboard() {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/api/vendor/dashboard/${user_id}`,
+          `http://localhost:3000/api/vendor/dashboard/${user_id}`,
           {
             headers: { Authorization: `Bearer ${authToken}` },
           }
@@ -143,7 +143,9 @@ export default function VendorDashboard() {
               className="p-6 rounded-lg text-black bg-cover bg-center shadow-md h-[250px]"
               style={{ backgroundImage: "url('/bgcouple.jpg')" }}
             >
-              <h2 className="text-xl font-semibold">Bookings and Requests</h2>
+              <button onClick={() => navigate('/booking')} className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+          Bookings and Requests
+        </button>
               <p className="mt-2">Manage all your service requests</p>
             </div>
           </div>
