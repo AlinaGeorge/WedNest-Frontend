@@ -10,6 +10,7 @@ export default function VendorDashboard() {
   const email = localStorage.getItem("userEmail");
   const authToken = localStorage.getItem("authToken");
   const userRole = localStorage.getItem("userRole");
+  const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
     if (!authToken || !email || userRole !== "Vendor") {
