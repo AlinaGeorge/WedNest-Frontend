@@ -40,6 +40,7 @@ const Login = () => {
         localStorage.setItem("userEmail", email);
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("userRole", role);
+        localStorage.setItem("user_id", data.user_id);
 
         // ✅ Redirect based on role
         setTimeout(() => {

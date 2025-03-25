@@ -13,10 +13,7 @@ export default function VendorDashboard() {
   const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
-    if (!authToken || !email || userRole !== "Vendor") {
-      navigate("/login");
-      return;
-    }
+    
 
     const fetchUserData = async () => {
       try {
