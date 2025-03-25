@@ -4,14 +4,14 @@ import { useNavigate } from "react-router-dom";
 export default function VendorDashboard() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   // ✅ Get user details from localStorage
   const email = localStorage.getItem("userEmail");
   const authToken = localStorage.getItem("authToken");
   const userRole = localStorage.getItem("userRole");
   const user_id = localStorage.getItem("user_id");
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
+
   useEffect(() => {
     if (!authToken || !email || userRole !== "Vendor") {
       navigate("/login");
@@ -21,7 +21,7 @@ export default function VendorDashboard() {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/api/vendor/dashboard/${user_id}`,
+          `https://wednest-backend-hb5i.onrender.com/api/vendor/dashboard/${user_id}`,
           {
             headers: { Authorization: `Bearer ${authToken}` },
           }
