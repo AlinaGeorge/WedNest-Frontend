@@ -20,7 +20,7 @@ export default function VendorDashboard() {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          "${API_URL}/api/vendor/dashboard/${user_id}",
+          `${API_URL}/api/vendor/dashboard/${user_id}`,
           {
             headers: { Authorization: `Bearer ${authToken}` },
           }
