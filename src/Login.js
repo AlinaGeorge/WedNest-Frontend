@@ -36,11 +36,12 @@ const Login = () => {
         setMessage("Login successful! Redirecting...");
         setMessageType("success");
 
-        // ✅ Store login data in localStorage
+        // ✅ Store user details in localStorage
         localStorage.setItem("userEmail", email);
-        localStorage.setItem("authToken", data.token);
+        if (data.token) localStorage.setItem("authToken", data.token);
         localStorage.setItem("userRole", role);
-        localStorage.setItem("user_id", data.user_id);
+        localStorage.setItem("user_id", data.data?.user_id || "");
+        localStorage.setItem("user_type", data.data?.user_type || "");
 
         // ✅ Redirect based on role
         setTimeout(() => {
