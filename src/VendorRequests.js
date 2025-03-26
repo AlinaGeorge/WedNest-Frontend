@@ -13,7 +13,7 @@ export default function VendorRequests() {
     const fetchRequests = async () => {
       try {
         const response = await fetch(
-          `https://wednest-backend-0ti8.onrender.com/api/vendor/requests/${vendor_id}`
+          `https://wednest-backend-hb5i.onrender.com/api/vendor/requests/${vendor_id}`
         );
         const data = await response.json();
 
@@ -42,7 +42,7 @@ export default function VendorRequests() {
 
   const handleAction = async (requestId, action) => {
     try {
-      const response = await fetch(`https://wednest-backend-0ti8.onrender.com/api/request/${requestId}`, {
+      const response = await fetch(`https://wednest-backend-hb5i.onrender.com/api/request/${requestId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
